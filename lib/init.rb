@@ -1,0 +1,5 @@
+require 'rubygems'
+gem 'soap4r'
+require 'soap/mapping'
+require 'soap/rpc/driver'
+require 'soap/mapping/encodedregistry'
