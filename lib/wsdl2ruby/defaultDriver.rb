@@ -1,6 +1,10 @@
-require 'default.rb'
-require 'defaultMappingRegistry.rb'
+require 'rubygems'
+gem 'soap4r'
+require "#{File.dirname(__FILE__)}/default.rb"
+require "#{File.dirname(__FILE__)}/defaultMappingRegistry.rb"
+require 'soap/mapping'
 require 'soap/rpc/driver'
+require 'soap/mapping/encodedregistry'
 
 class WAPISoap < ::SOAP::RPC::Driver
   DefaultEndpointUrl = "https://api.ote.wildwestdomains.com/wswwdapi/wapi.asmx"

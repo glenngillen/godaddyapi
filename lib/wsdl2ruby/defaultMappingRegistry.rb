@@ -1,4 +1,3 @@
-require 'default.rb'
 require 'soap/mapping'
 
 module DefaultMappingRegistry
