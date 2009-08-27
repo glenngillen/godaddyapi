@@ -1,5 +1,7 @@
+require 'rubygems'
 require 'active_support'
 require 'active_resource/formats'
+require 'uuid'
 
 module GodaddyAPI
   class Base
@@ -16,6 +18,10 @@ module GodaddyAPI
     
     def self.connection
       @@connection ||= WAPISoap.new("https://api.ote.wildwestdomains.com/wswwdapi/wapi.asmx")
+    end
+    
+    def self.generate_uuid
+      UUID.new.generate
     end
     
     def initialize(user, password)
@@ -39,6 +45,10 @@ module GodaddyAPI
       
       def credentials
         self.class.credentials
+      end
+      
+      def generate_uuid
+        self.class.generate_uuid
       end
   end
 end

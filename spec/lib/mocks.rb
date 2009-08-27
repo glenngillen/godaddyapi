@@ -88,4 +88,11 @@ module GodaddyMocks
       &lt;/resdata&gt;
     &lt;/response&gt;</CancelResult></CancelResponse>})        
   end
+  
+  def mock_suggestions(domain, *opts)
+    @suggestion_params ||= mock("suggestion_params")
+    params = [@uid.generate, @credentials, domain, *opts]
+    NameGenDB.should_receive(:new).with(*params).and_return(@suggestion_params)
+    @connection.stub!(:nameGenDB)
+  end
 end

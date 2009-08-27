@@ -157,56 +157,52 @@ describe "Domains" do
     pending
   end
   
-  describe "when suggesting alternatives" do
+  describe "when suggesting alternatives" do    
     it "should give suggestions" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, nil, nil, nil, nil, nil)
       @connection.should_receive(:nameGenDB).with(@suggestion_params)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com")
-      pending
     end
     
     it "should limit results" do
+      mock_suggestions("cheapexamples.com", 100, nil, nil, nil, nil, nil, nil, nil)
+      @connection.should_receive(:nameGenDB).with(@suggestion_params)      
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :max_results => 100)
-      pending
     end
     
     it "should exclude taken domains" do
+      mock_suggestions("cheapexamples.com", nil, true, nil, nil, nil, nil, nil, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :exclude_taken => true)
-      pending
     end
     
     it "should limit to given TLDs" do
+      mock_suggestions("cheapexamples.com", nil, nil, "COM,1.0|NET,1.0", nil, nil, nil, nil, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :tlds => ["com", "net"])
-      pending
     end
     
     it "should add prefixes" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, true, nil, nil, nil, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :prefixes => true)
-      pending
     end
     
     it "should add suffixes" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, nil, true, nil, nil, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :suffixes => true)
-      pending
     end
     
     it "should add dashes" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, nil, nil, true, nil, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :dashes => true)
-      pending
     end
     
     it "should find related" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, nil, nil, nil, true, nil)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :related => true)
-      pending
     end
     
     it "should do advanced word splitting" do
+      mock_suggestions("cheapexamples.com", nil, nil, nil, nil, nil, nil, nil, true)
       GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :advanced_split => true)
-      pending
-    end
-    
-    it "should set a timeout" do
-      GodaddyAPI::Domain.find_suggestions("cheapexamples.com", :timeout => 300)
-      pending
     end
   end
   
