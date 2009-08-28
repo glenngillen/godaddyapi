@@ -151,10 +151,32 @@ describe "Domains" do
       end
     end
   end
-  
-  it "should modify DNS entry" do
-    @connection.should_receive(:modifyDNS).with(@dns_params)
-    pending
+
+  describe "when modifying DNS" do
+    it "should add an entry" do
+      @connection.should_receive(:modifyDNS).with(@dns_params)
+      GodaddyAPI::Domain.add_dns("example.com", "A", "127.0.0.1")
+    end
+
+    it "should set the TTL" do
+      @connection.should_receive(:modifyDNS).with(@dns_params)
+      GodaddyAPI::Domain.add_dns("example.com", "A", "127.0.0.1", :ttl => 84600)
+    end
+    
+    it "should set they record key for CNAME entries" do
+      @connection.should_receive(:modifyDNS).with(@dns_params)
+      GodaddyAPI::Domain.add_dns("example.com", "CNAME", "example.com", :key => "www")
+    end
+    
+    it "should remove an entry" do
+      @connection.should_receive(:modifyDNS).with(@dns_params)
+      GodaddyAPI::Domain.remove_dns("example.com", "A", "127.0.0.1")
+    end
+    
+    it "should remove a CNAME entry" do
+      @connection.should_receive(:modifyDNS).with(@dns_params)
+      GodaddyAPI::Domain.remove_dns("example.com", "CNAME", "example.com", :key => "www")      
+    end
   end
   
   describe "when suggesting alternatives" do    
